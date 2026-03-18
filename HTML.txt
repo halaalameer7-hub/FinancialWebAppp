@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Financial Dashboard</title>
+</head>
+<body>
+  <h2>Financial Data Input</h2>
+  <form id="financialForm">
+    Revenue: <input type="number" id="revenue" required><br><br>
+    Expenses: <input type="number" id="expenses" required><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Financial Report</h2>
+  <pre id="report"></pre>
+
+  <script src="app.js"></script>
+</body>
+</html>

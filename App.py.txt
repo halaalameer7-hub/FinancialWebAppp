@@ -1,0 +1,38 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# البيانات السابقة
+previous_data = {"Revenue": 12000, "Expenses": 8000}
+
+@app.route('/update', methods=['POST'])
+def update():
+    global previous_data
+    data = request.json
+    revenue = int(data['Revenue'])
+    expenses = int(data['Expenses'])
+
+    net_profit = revenue - expenses
+    prev_profit = previous_data['Revenue'] - previous_data['Expenses']
+
+    variance_rev = revenue - previous_data['Revenue']
+    variance_exp = expenses - previous_data['Expenses']
+    variance_profit = net_profit - prev_profit
+    net_margin = (net_profit / revenue) * 100
+
+    # تحديث البيانات السابقة
+    previous_data = {"Revenue": revenue, "Expenses": expenses}
+
+    report = f"""
+Revenue: ${revenue}
+Expenses: ${expenses}
+Net Profit: ${net_profit}
+Variance Revenue: ${variance_rev}
+Variance Expenses: ${variance_exp}
+Variance Profit: ${variance_profit}
+Net Profit Margin: {net_margin:.2f}%
+"""
+    return jsonify({"report": report})
+
+if __name__ == "__main__":
+    app.run(debug=True)

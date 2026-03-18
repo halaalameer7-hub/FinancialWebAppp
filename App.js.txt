@@ -1,0 +1,14 @@
+document.getElementById('financialForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const revenue = document.getElementById('revenue').value;
+  const expenses = document.getElementById('expenses').value;
+
+  const response = await fetch('/update', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({Revenue: revenue, Expenses: expenses})
+  });
+
+  const data = await response.json();
+  document.getElementById('report').textContent = data.report;
+});
